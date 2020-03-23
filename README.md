@@ -1,4 +1,4 @@
 # WSERS2
 
 This is my new repository
-rafi
+    Please follow the instructions in the chat !
