@@ -1,0 +1,1 @@
+SELECT * FROM `mirwais`.`people` LIMIT 1000;
