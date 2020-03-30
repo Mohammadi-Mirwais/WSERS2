@@ -11,19 +11,19 @@
         die("Connection failed: " . mysqli_connect_error());
     }
 
-    if ((isset($_GET["Username"])) && (isset($_GET["Password"]))) {
+    if ((isset($_GET["Username"]))&&
+     (isset($_GET["Password"]))) {
 
-        $isUserThere = $connection->prepare("SELECT * FROM people WHERE Username=?");
-        $isUserThere->bind_param("s", $_GET["Username"]);
-        $isUserThere->execute();
+        $isUserFromMyDatabase = $connection->prepare("SELECT * FROM people WHERE Username=?");
+        $isUserFromMyDatabase->bind_param("s", $_GET["Username"]);
+        $isUserFromMyDatabase->execute();
 
-        $result = $isUserThere->get_result();
-
-        if ($result->num_rows > 0) {
-            print "user does not exist/ password is wrong!<br>";
-            $row = mysqli_fetch_assoc($result);
-            if ($row['Password'] == $_GET["Password"]) {
-                print "Your username does not exist!<br>";
+        if ($result->num_rows === 1) {
+            print "we are checking your password <br>";
+            $row = $result->num_rows->fetch_assoc());
+            print $row["person_ID"];
+            if ($row['Password'] === $_GET["Password"]) {
+                print "you are now successfully login!<br>";
             } 
         } else {
             print "user does not exist/ password is wrong";
