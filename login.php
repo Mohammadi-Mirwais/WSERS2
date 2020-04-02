@@ -1,39 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<body>
+
+
     <?php
+
+if (
+    isset($_POST["Username"]) &&
+    isset($_POST["Password"])
+) {
     include_once("credentials.php");
+   
     $connection = mysqli_connect($servername, $username, $password, $database);
+
     if (!$connection) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    if ((isset($_GET["Username"]))&&
-     (isset($_GET["Password"]))) {
-        $isUserFromMyDatabase = $connection->prepare("SELECT * FROM people WHERE Username=?");
-        $isUserFromMyDatabase->bind_param("s", $_GET["Username"]);
-        $isUserFromMyDatabase->execute();
+        $userFromMyDatabase = $connection->prepare("SELECT * FROM people WHERE UserName=?");
+        $userFromMyDatabase->bind_param("s", $_POST["Username"]);
+        $userFromMyDatabase->execute();
+        $result = $userFromMyDatabase->get_result();
         if ($result->num_rows === 1) {
-            print "we are checking your password <br>";
-            $row = $result->num_rows->fetch_assoc();
-            print $row["person_ID"];
-            if ($row['Password'] === $_GET["Password"]) {
-                print "you are now successfully login!<br>";
-            } 
-        } else {
-            print "user does not exist/ password is wrong";
-        }
+            print "We are checking your password <BR>";
+            $row = $result->fetch_assoc();
+
+            if(password_verify($_POST["Password"], $row["Password"]))
+             {
+                print "Ok... You are now successfully registered";
+         } 
+    else
+    {
+         print "Wrong password !";
     }
-    $connection->close();
-
-    ?>
-
-    <form action="login.php" method="get">
-        username: <input type="text" name="Username"><br>
-        password: <input type="text" name="Password">
-        <input type="submit" value="login" name="login">
+} else
+{
+    print "Your username is not in our database !! Please consider registering !<br>";
+    ?> <a href="Signup.php">Go to the signup page<br></a>
+    <a href="Login.php">Try again</a>
+<?php
+}
+}
+else {
+?>
+ <form action="Login.php" method="post">
+        Username: <input type="text" name="Username" required><br>
+        Password: <input type="text" name="Password" required><br>
+        <input type="submit" name="Login" value="Login">
     </form>
-</body>
-
-</html>
-<html>
-<body>
+  <?php
+}
+    ?>
