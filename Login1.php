@@ -26,7 +26,7 @@ if (isset($_POST["Username"]) && isset($_POST["Password"])) {
     } else {
         print "Your username is not in our database !! Please consider registering !"; ?> <a href="Signup.php">Go to
     the signup page</a>
-<a href="Login.php">Try again</a>
+<a href="Login1.php">Try again</a>
 <?php
     }
 } else {
