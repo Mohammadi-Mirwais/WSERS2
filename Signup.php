@@ -24,9 +24,9 @@
         if ($result->num_rows > 0) {
             print "Your username is already taken ! <BR>";
         } else {
-
+            $hasedpassword = password_hash($_GET["Password"], PASSWORD_DEFAULT);
             $stmt = $connection->prepare("INSERT INTO people(First_Name,Second_Name,Age,UserName,Password,Nationality) VALUES(?,?,?,?,?,?)");
-            $stmt->bind_param("ssissi", $_GET["FirstName"], $_GET["LastName"], $_GET["Age"], $_GET["Username"], $_GET["Password"], $_GET["Country"]);
+            $stmt->bind_param("ssissi", $_GET["FirstName"], $_GET["LastName"], $_GET["Age"], $_GET["Username"], $hasedpassword , $_GET["Country"]);
             $stmt->execute();
             print " you have registered. Check the database <BR>";
         }
@@ -34,15 +34,15 @@
 
 
     ?>
-        <form action="Signup.php" method="get">
-            First name: <input type="text" name="FirstName" required><br>
-            Last name: <input type="text" name="LastName" required><br>
-            Age: <input type="text" name="Age"><br>
-            UserName: <input type="text" name="Username" required><br>
-            Password: <input type="text" name="Password" required><br>
+    <form action="Signup.php" method="get">
+        First name: <input type="text" name="FirstName" required><br>
+        Last name: <input type="text" name="LastName" required><br>
+        Age: <input type="text" name="Age"><br>
+        UserName: <input type="text" name="Username" required><br>
+        Password: <input type="text" name="Password" required><br>
 
-            <select name="Country">
-                <?php
+        <select name="Country">
+            <?php
                 $stmt = $connection->prepare("SELECT * FROM countries");
                 $stmt->execute();
                 $result = $stmt->get_result();
@@ -57,10 +57,10 @@
                 }
                 $connection->close();
                 ?>
-            </select>
-            <br>
-            <input type="submit" name="Register" value="Register">
-        </form>
+        </select>
+        <br>
+        <input type="submit" name="Register" value="Register">
+    </form>
     <?php } ?>
 
 </body>
