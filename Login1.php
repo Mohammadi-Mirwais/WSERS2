@@ -1,37 +1,41 @@
 <?php
+ include_once "session.php";
+ include_once "credentials.php";
+ include_once "displaynewuser.php";
 
-if (isset($_POST["Username"]) && isset($_POST["Password"])) {
-    include_once "credentials.php";
+
+ if (isset($_POST["Logout"])){
+     session_unset();
+     session_destroy();
+     print "successfully unregistered";
+ }elseif ($_SESSION["userlogged"]){
+     print "you are already have logged in" . "<BR>";
+  displayuserdetails($connection);
+?>
+<form action="Login1.php" method="post">
+    <input type="submit" name="Logout" value="Logout">
+</form>
+
+<?php
+ }elseif (isset($_POST["Username"]) && isset($_POST["Password"])) {
+    //  include_once "credentials.php";
 
     // Create connection
-    $connection = mysqli_connect($servername, $username, $password, $database);
-    // Check connection
-    if (!$connection) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    $userFromMyDatabase = $connection->prepare("SELECT * FROM people WHERE UserName=?");
-   
     
+    // Check connection
+   
+    $userFromMyDatabase = $connection->prepare("SELECT * FROM people WHERE UserName=?");
     $userFromMyDatabase->bind_param("s", $_POST["Username"]);
     $userFromMyDatabase->execute();
     $result = $userFromMyDatabase->get_result();
     if ($result->num_rows === 1) {
         print "We are checking your password <BR>";
         $row = $result->fetch_assoc();
-
         if (password_verify($_POST["Password"], $row["Password"])) {
-            print "Welcome " ." " . $row["First_Name"] . " " . " your last name is " . " " . $row["Second_Name"] . " " . " your age is " . " " . $row["Age"]; 
-            print "<BR>";
-           $country = $connection->prepare('SELECT * FROM countries WHERE COUNTRY_ID=?');
-           $country->bind_param('i', $row ["Nationality"]);
-           $country->execute();
-           $MyResultOfcountries = $country->get_result();
-           $counrtrySelected = $MyResultOfcountries->fetch_assoc();
-           print "you are from:". $counrtrySelected["COUNTRY_NAME"];
-           
-            
-            ?> <a href="Login1.php">Go to
-    the Login1 page</a>
+            $_SESSION["userlogged"]= true;
+            $_SESSION["currentuser"] = $row["PERSON_ID"];
+            displayuserdetails($connection); 
+            ?> <a href="Login1.php">Go to the Login1 page</a>
 <?php
         } else {
             print "Wrong password !";

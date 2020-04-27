@@ -1,40 +1,62 @@
+<?php
+ include_once "session.php";
+ ?>
 <html>
 
 <body>
     <?php
-    include_once("credentials.php");
-    // Create connection
-    $connection = mysqli_connect($servername, $username, $password, $database);
-    // Check connection
-    if (!$connection) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    if (
-        isset($_GET["FirstName"]) &&
-        isset($_GET["LastName"]) &&
-        isset($_GET["Username"]) &&
-        isset($_GET["Password"])
-    ) {
+    include_once "credentials.php";
+    if (isset($_POST["Logout"])){
+        session_unset();
+        session_destroy();
+        print "successfully unregisterd";
+        
+    }elseif ($_SESSION["userlogged"]) {
+        print " you already log in you can not sign up twoice";?>
+    <form action="Signup.php" method="post">
+        <input type="submit" name="Logout" value="Logout">
+    </form>
+    <?php
+} elseif (
+        isset($_POST["FirstName"]) && isset($_POST["LastName"]) && isset($_POST["Username"]) && isset($_POST["Password"])) {
         print "You are about to register .... but not yet<BR>";
         $isUserThere = $connection->prepare("SELECT * FROM people WHERE Username=?");
-        $isUserThere->bind_param("s", $_GET["Username"]);
+        $isUserThere->bind_param("s", $_POST["Username"]);
         $isUserThere->execute();
-
+       
         $result = $isUserThere->get_result();
         if ($result->num_rows > 0) {
             print "Your username is already taken ! <BR>";
         } else {
-            $hasedpassword = password_hash($_GET["Password"], PASSWORD_DEFAULT);
+            
+            $hasedpassword = password_hash($_POST["Password"], PASSWORD_DEFAULT);
             $stmt = $connection->prepare("INSERT INTO people(First_Name,Second_Name,Age,UserName,Password,Nationality) VALUES(?,?,?,?,?,?)");
-            $stmt->bind_param("ssissi", $_GET["FirstName"], $_GET["LastName"], $_GET["Age"], $_GET["Username"], $hasedpassword , $_GET["Country"]);
+            $stmt->bind_param(
+                "ssissi",
+                $_POST["FirstName"],
+                $_POST["LastName"],
+                $_POST["Age"],
+                $_POST["Username"],
+                $hasedpassword,
+                $_POST["Country"]);
             $stmt->execute();
-            print " you have registered. Check the database <BR>";
+        
+        print " you have registered. Check the database <BR>";
+        $_SESSION["userlogged"]= true;
+        $newselectstmt = $connection->prepare("SELECT PERSON_ID FROM people WHERE Username?");
+        $newselectstmt->bind_param("i", $_POST["Username"]);
+        $newselectstmt->execute();
+        $resultinguser = $newselectstmt->get_result();
+        $rowcurrntid = $resultinguser->fetch_assoc();
+       $_SESSION["currentuser"] = $rowcurrntid["PERSON_ID"];
+            ?> <a href="Login1.ph p">Go to the Login1 page</a> <?php
         }
+
     } else {
 
 
     ?>
-    <form action="Signup.php" method="get">
+    <form action="Signup.php" method="POST">
         First name: <input type="text" name="FirstName" required><br>
         Last name: <input type="text" name="LastName" required><br>
         Age: <input type="text" name="Age"><br>
