@@ -65,7 +65,7 @@
 
         <select name="Country">
             <?php
-                $stmt = $connection->prepare("SELECT * FROM countries");
+                $stmt = $connection->prepare("SELECT * FROM COUNTRIES");
                 $stmt->execute();
                 $result = $stmt->get_result();
 
