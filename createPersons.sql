@@ -3,13 +3,13 @@ USE mirwais;
 
 CREATE TABLE User_roles
 (
-    ID INT NULL  AUTO_INCREMENT,
+    ID INT NULL AUTO_INCREMENT,
     usertype VARCHAR (20) NOT NULL,
     PRIMARY KEY (ID)
 );
 
-INSERT INTO User_roles (Name) ('Admin');
-INSERT INTO User_roles (Name) VALUES('customer');
+INSERT INTO User_roles (usertype) VALUES('Admin');
+INSERT INTO User_roles (usertype) VALUES('customer');
 
 CREATE TABLE COUNTRIES(
     COUNTRY_ID INT NOT NULL AUTO_INCREMENT,
