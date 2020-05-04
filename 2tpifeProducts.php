@@ -103,6 +103,16 @@ include_once "displayUser.php";
             <p>This is a short description of my product</p>
             <p>Price &euro;</p>
         </div>
+        <div class="Product">
+            <img src="radish.jpg">
+            <p>This is a short description of my product</p>
+            <p>Price  3 &euro;</p>
+        </div>
+        <div class="Product">
+            <img src="Iphone-X.jpg">
+            <p>This is a short description of my product</p>
+            <p>Price  1000 &euro;</p>
+        </div>
     </div>
 </body>
 
