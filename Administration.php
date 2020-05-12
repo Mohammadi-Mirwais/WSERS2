@@ -56,7 +56,7 @@ if (isset($_POST["Add"])) {
     $_POST["Picture"]
   );
   $addProduct->execute();
-  $resultProduct = $addProduct->get_result();
+  print "We hopefully added your product to the Database";
 }
 ?>
 <form action="Administration.php" method="post">

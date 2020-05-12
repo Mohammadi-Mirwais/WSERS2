@@ -85,34 +85,19 @@ include_once "displayUser.php";
     </nav>
     <h1>These are our products</h1>
     <div id="AllProducts">
+    <?php
+    $product = $connection->prepare("SELECT * FROM products");
+    $product->execute();
+    $result = $product->get_result();
+    while ($row = $result->fetch_assoc()) { ?>
         <div class="Product">
-            <img src="myComputer.gif">
-            <p>This is a short description of my product</p>
-            <p>Price &euro;</p>
-        </div>
+            <img src="<?php print $row["Picture"]; ?>">
+            <p><?php print $row["Description"]; ?></p>
+            <p>Price: <?php print $row["Price"]; ?> &euro;</p>
 
-
-        <div class="Product">
-            <img src="melon.jpg">
-            <p>This is a short description of my product</p>
-            <p>Price &euro;</p>
         </div>
-
-        <div class="Product">
-            <img src="tomato.jpg">
-            <p>This is a short description of my product</p>
-            <p>Price &euro;</p>
-        </div>
-        <div class="Product">
-            <img src="radish.jpg">
-            <p>This is a short description of my product</p>
-            <p>Price  3 &euro;</p>
-        </div>
-        <div class="Product">
-            <img src="Iphone-X.jpg">
-            <p>This is a short description of my product</p>
-            <p>Price  1000 &euro;</p>
-        </div>
+      <?php }
+    ?>
     </div>
 </body>
 
