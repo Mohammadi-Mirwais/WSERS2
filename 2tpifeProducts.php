@@ -94,10 +94,17 @@ include_once "displayUser.php";
             <img src="<?php print $row["Picture"]; ?>">
             <p><?php print $row["Description"]; ?></p>
             <p>Price: <?php print $row["Price"]; ?> &euro;</p>
+            <br>
+<form action="2tpifeProducts.php" method="post">
+<input type="hidden" name="BuyItem" value ="<?php print $row["ID"]; ?>">
+<input type="submit" name="BuxItm" value = "Buy">
+</form>
 
         </div>
       <?php }
     ?>
+    <br>
+
     </div>
 </body>
 
