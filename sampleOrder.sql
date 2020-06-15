@@ -1,4 +1,4 @@
-use baseer;
+use mirwais;
 
 create table order (
     order_id INT NOT NULL AUTO_INCREMENT,
