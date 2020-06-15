@@ -1,5 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Administration</title>
+  <link rel='stylesheet' type='text/css' media='screen' href='2tpife.css'>
+</head>
+<body>
 <?php
-
 include_once "sessionCheck.php";
 include_once "credentials.php";
 
@@ -32,7 +39,7 @@ while ($rowUsers = $resultUsers->fetch_assoc()) {
         <input type="hidden" name="userToDelete" value="<?php print $rowUsers[
           "UserName"
         ]; ?>" >
-        <input type="submit" name="Delete" value="Delete">
+        <input type="submit" name="Delete" id="deleteButton" value="Delete">
     </form>
   <?php
 }
@@ -48,13 +55,20 @@ if (isset($_POST["Add"])) {
     $_POST["Picture"]
   );
   $addProduct->execute();
-  print "We hopefully added your product to the Database";
+  $resultProduct = $addProduct->get_result();
 }
 ?>
-<form action="Administration.php" method="post">
-  Name: <input type="text" name="ProductName" placeholder="Product Name" required><br>
-  Description: <input type="text" name="Description" placeholder="Description"><br>
-  Price: <input type="text" name="Price" placeholder="Price" required><br>
-  Picture: <input type="text" name="Picture" placeholder="Picture" required><br>
-  <input type="submit" name="Add" value="Add">
-</form>
+<table>
+  <form action="Administration.php" method="post">
+    <tr><td>Name: <input type="text" name="ProductName" placeholder="Product Name" required></td></tr>
+    <tr><td>Description: <input type="text" name="Description" placeholder="Description"></td></tr>
+    <tr><td>Price: <input type="text" name="Price" placeholder="Price" required></td></tr>
+    <tr><td>Picture: <input type="text" name="Picture" placeholder="Picture" required></td></tr>
+    <input type="submit" name="Add" id="addButton" value="Add">
+  </form>
+</table>
+
+
+</body>
+</html>
+

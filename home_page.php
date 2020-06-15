@@ -61,9 +61,7 @@
             $products = $connection->prepare("SELECT * FROM products");
             $products->execute();
             $resultProducts = $products->get_result();
-            while (
-              $rowProducts = $resultProducts->fetch_assoc()
-            ) { ?><div class="Product">
+            while ($rowProducts = $resultProducts->fetch_assoc()) { ?><div class="Product">
               <img src="<?php print $rowProducts["Picture"]; ?>" />
               <h4><?php print $rowProducts["Description"]; ?></h4>
               <h3><?php print $rowProducts["Price"]; ?> &euro;</h3>

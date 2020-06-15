@@ -35,7 +35,7 @@ include_once "displayUser.php";
             <a href="2tpifeProducts.php">
                 <h1>Products</h1>
             </a>
-            <a href="2tpifeAbout.php">
+            <a href="2tpifeAbout.html">
                 <h1>About</h1>
             </a>
         </div>
@@ -49,7 +49,9 @@ include_once "displayUser.php";
 
               /*  ?> <a href="2tpifeProducts.php">Login</a><?php */
               ?>
-                  <form action="<?php print $_SERVER["PHP_SELF"]; ?>" method="post">
+                  <form action="<?php print $_SERVER[
+                    "PHP_SELF"
+                  ]; ?>" method="post">
                     <div>
                       <div>
                         <label for="Username">Username: </label>
@@ -78,7 +80,9 @@ include_once "displayUser.php";
               //print "You have already been logged-in" . "<br>";
               displayUserDetails($connection);
             } elseif (isset($_POST["Username"]) && isset($_POST["Password"])) {
-              $userFromMyDatabase = $connection->prepare("SELECT * FROM ppl WHERE UserName=?");
+              $userFromMyDatabase = $connection->prepare(
+                "SELECT * FROM ppl WHERE UserName=?"
+              );
               $userFromMyDatabase->bind_param("s", $_POST["Username"]);
               $userFromMyDatabase->execute();
               $result = $userFromMyDatabase->get_result();
@@ -101,7 +105,9 @@ include_once "displayUser.php";
               }
             } else {
                ?>
-                  <form action="<?php print $_SERVER["PHP_SELF"]; ?>" method="post">
+                  <form action="<?php print $_SERVER[
+                    "PHP_SELF"
+                  ]; ?>" method="post">
                     <div>
                       <div>
                         <label for="Username">Username: </label>
@@ -127,24 +133,7 @@ include_once "displayUser.php";
             <a href="">Language</a>
         </div>
     </nav>
-    <h1>These are our products</h1>
-    <div id="AllProducts">
-    <?php
-    $products = $connection->prepare("SELECT * FROM products");
-    $products->execute();
-    $result = $products->get_result();
-    while ($row = $result->fetch_assoc()) { ?>
-        <div class="Product">
-            <img src="<?php print $row["Picture"]; ?>"><br>
-            <?php print $row["Description"]; ?> <br>
-            Price <?php print $row["Price"]; ?> &euro;<br>
-            <form action="2tpifeProducts.php" method="post">
-              <input type="hidden" name="BuyItem" value="<?php print $row["ID"]; ?>" >
-              <input type="submit" name="BuyItem" id="BuyItem" value="Buy">
-            </form>
-            <?php }
-    ?>
-        </div>  
+
 </body>
 
 </html>

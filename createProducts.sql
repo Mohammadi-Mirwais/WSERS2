@@ -1,4 +1,4 @@
-USE mirwais;
+USE baseer;
 CREATE TABLE Products(
     ID INT NOT NULL AUTO_INCREMENT,
     NAME varchar(50),

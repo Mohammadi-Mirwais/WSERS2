@@ -127,24 +127,7 @@ include_once "displayUser.php";
             <a href="">Language</a>
         </div>
     </nav>
-    <h1>These are our products</h1>
-    <div id="AllProducts">
-    <?php
-    $products = $connection->prepare("SELECT * FROM products");
-    $products->execute();
-    $result = $products->get_result();
-    while ($row = $result->fetch_assoc()) { ?>
-        <div class="Product">
-            <img src="<?php print $row["Picture"]; ?>"><br>
-            <?php print $row["Description"]; ?> <br>
-            Price <?php print $row["Price"]; ?> &euro;<br>
-            <form action="2tpifeProducts.php" method="post">
-              <input type="hidden" name="BuyItem" value="<?php print $row["ID"]; ?>" >
-              <input type="submit" name="BuyItem" id="BuyItem" value="Buy">
-            </form>
-            <?php }
-    ?>
-        </div>  
+    
 </body>
 
 </html>
