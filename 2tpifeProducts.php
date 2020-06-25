@@ -41,7 +41,12 @@ include_once "displayUser.php";
         </div>
         
         <div id="login">
-            <?php if (isset($_POST["Logout"])) {
+
+            <?php
+            if (isset($_POST["BuyItem"])) {
+              array_push($_SESSION["Basket"], $_POST["BuyItem"]);
+            }
+            if (isset($_POST["Logout"])) {
 
               session_unset();
               session_destroy();
@@ -49,7 +54,9 @@ include_once "displayUser.php";
 
               /*  ?> <a href="2tpifeProducts.php">Login</a><?php */
               ?>
-                  <form action="<?php print $_SERVER["PHP_SELF"]; ?>" method="post">
+                  <form action="<?php print $_SERVER[
+                    "PHP_SELF"
+                  ]; ?>" method="post">
                     <div>
                       <div>
                         <label for="Username">Username: </label>
@@ -69,6 +76,9 @@ include_once "displayUser.php";
             } elseif (!$_SESSION["UserLogged"]) {
               $bDisplaySignup = true;
             }
+            if (!isset($_SESSION["Basket"])) {
+              $_SESSION["Basket"] = [];
+            }
 
             if ($bDisplaySignup) { ?>
             <div id="Signup"><a href="Signup.php">Signup</a></div>
@@ -78,7 +88,9 @@ include_once "displayUser.php";
               //print "You have already been logged-in" . "<br>";
               displayUserDetails($connection);
             } elseif (isset($_POST["Username"]) && isset($_POST["Password"])) {
-              $userFromMyDatabase = $connection->prepare("SELECT * FROM ppl WHERE UserName=?");
+              $userFromMyDatabase = $connection->prepare(
+                "SELECT * FROM ppl WHERE UserName=?"
+              );
               $userFromMyDatabase->bind_param("s", $_POST["Username"]);
               $userFromMyDatabase->execute();
               $result = $userFromMyDatabase->get_result();
@@ -88,6 +100,7 @@ include_once "displayUser.php";
                 if (password_verify($_POST["Password"], $row["Password"])) {
                   $_SESSION["UserLogged"] = true;
                   $_SESSION["CurrentUser"] = $row["PERSON_ID"];
+                  $_SESSION["Basket"] = [];
                   displayUserDetails($connection);
                 } else {
                   print "Password mismatched ! Please type your password correctly"; ?>
@@ -101,7 +114,9 @@ include_once "displayUser.php";
               }
             } else {
                ?>
-                  <form action="<?php print $_SERVER["PHP_SELF"]; ?>" method="post">
+                  <form action="<?php print $_SERVER[
+                    "PHP_SELF"
+                  ]; ?>" method="post">
                     <div>
                       <div>
                         <label for="Username">Username: </label>
@@ -115,7 +130,8 @@ include_once "displayUser.php";
                     <input type="submit" name="Login" id="loginButton" value="Login">
                   </form>
             <?php
-            } ?>
+            }
+            ?>
         </div>
         
         <?php if (isset($_SESSION["UserLogged"])) {
@@ -124,10 +140,18 @@ include_once "displayUser.php";
 <?php }
         } ?>
         <div id="navigationLanguage">
-            <a href="">Language</a>
+            <a href="french.html">Language</a>
+
         </div>
     </nav>
+    <div  id="product1">
     <h1>These are our products</h1>
+    </div>
+    <div><a href="finishOrder.php">Basket = </a><?php print sizeof(
+      $_SESSION["Basket"]
+    ); ?>
+    </div>
+    
     <div id="AllProducts">
     <?php
     $products = $connection->prepare("SELECT * FROM products");
@@ -139,8 +163,10 @@ include_once "displayUser.php";
             <?php print $row["Description"]; ?> <br>
             Price <?php print $row["Price"]; ?> &euro;<br>
             <form action="2tpifeProducts.php" method="post">
-              <input type="hidden" name="BuyItem" value="<?php print $row["ID"]; ?>" >
-              <input type="submit" name="BuyItem" id="BuyItem" value="Buy">
+              <input type="hidden" name="BuyItem" value="<?php print $row[
+                "ID"
+              ]; ?>" >
+              <input type="submit" name="BuyItemButton" id="BuyItem" value="Buy">
             </form>
             <?php }
     ?>

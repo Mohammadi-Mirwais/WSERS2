@@ -5,12 +5,29 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Finish order</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='2tpife.css'>
 
 </head>
 <body>
+<nav id="navigationBar1">
+        <div id="navigationTittle">
+            <h1>Your basket</h1>
+            
+        </div>
+        <div id=navigationLinks>
+            <a href="2tpifeProducts.php">
+                <h1>Products</h1>
+            </a>
+            <a href="2tpifeAbout.php">
+                <h1>About</h1>
+            </a>
+            </div>
+            </nav>
 
+<div id="finish">
+  
     <h1>Finish your order here:</h1>
+    
     <?php
     include_once "sessionCheck.php";
     include_once "credentials.php";
@@ -48,5 +65,6 @@
     }
     ?>
     
+    </div>
 </body>
 </html>

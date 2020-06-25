@@ -6,6 +6,24 @@
   <link rel='stylesheet' type='text/css' media='screen' href='2tpife.css'>
 </head>
 <body>
+
+<nav id="navigationBar1">
+        <div id="navigationTittle">
+            
+        </div>
+        <div id=navigationLinks>
+            <a href="2tpifeProducts.php">
+                <h1>Products</h1>
+            </a>
+            <a href="2tpifeAbout.php">
+                <h1>About</h1>
+            </a>
+            </div>
+            </nav> 
+   
+        <div id="signup">
+       
+        
 <?php
 include_once "sessionCheck.php";
 include_once "credentials.php";
@@ -59,14 +77,16 @@ if (isset($_POST["Add"])) {
 }
 ?>
 <table>
-  <form action="Administration.php" method="post">
+  <form id="form" action="Administration.php" method="post">
     <tr><td>Name: <input type="text" name="ProductName" placeholder="Product Name" required></td></tr>
     <tr><td>Description: <input type="text" name="Description" placeholder="Description"></td></tr>
     <tr><td>Price: <input type="text" name="Price" placeholder="Price" required></td></tr>
     <tr><td>Picture: <input type="text" name="Picture" placeholder="Picture" required></td></tr>
-    <input type="submit" name="Add" id="addButton" value="Add">
+    <tr><td><input type="submit" name="Add" id="addButton" value="Add"></td></tr>
   </form>
 </table>
+</div>
+
 
 
 </body>

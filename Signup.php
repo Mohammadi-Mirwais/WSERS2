@@ -10,6 +10,20 @@ include_once "sessionCheck.php"; ?>
 </head>
 
 <body>
+<nav id="navigationBar">
+        <div id="navigationTittle">
+            <h1></h1>
+        </div>
+        <div id=navigationLinks>
+            <a href="2tpifeProducts.php">
+                <h1>Products</h1>
+            </a>
+            <a href="2tpifeAbout.php">
+                <h1>About</h1>
+            </a>
+        </div>
+        </nav>
+        <div id="signup">
     <?php
     include_once "credentials.php";
     include_once "displayUser.php";
@@ -91,6 +105,7 @@ include_once "sessionCheck.php"; ?>
     <?php
     }
     ?>
+    </div>
 
 </body>
 
