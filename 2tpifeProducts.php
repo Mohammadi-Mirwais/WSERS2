@@ -158,7 +158,9 @@ include_once "displayUser.php";
     $products->execute();
     $result = $products->get_result();
     while ($row = $result->fetch_assoc()) { ?>
+    </div>  
         <div class="Product">
+
             <img src="<?php print $row["Picture"]; ?>"><br>
             <?php print $row["Description"]; ?> <br>
             Price <?php print $row["Price"]; ?> &euro;<br>

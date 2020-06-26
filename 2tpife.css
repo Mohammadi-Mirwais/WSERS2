@@ -112,25 +112,29 @@
 }
 
 #AllProducts {
+  justify-items: inherit;
+  justify-items: center;
+  flex-direction: row-reverse;
+  display: flex;  
+  flex-wrap: wrap;
   display: flex;
- justify-content: center;
- padding: 25px;
- justify-content: space-around;
- flex-wrap: wrap;
- 
+  justify-content: space-around;
+  flex: wrap;
+  columns: auto auto auto auto;
 
-  
   
 }
-
-.Product {
-  display: grid;
-  align-content: center;
-  text-align: center;
-  align-items: center;
-  flex-direction: column;
-  grid-template-columns: auto auto auto auto auto auto;
  
+.Product {
+  justify-items: inherit;
+    width: 35%;
+    height: 35%;
+    border: 5px solid #c8ceec;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    columns: auto auto auto auto;
+    margin-left: 35%;
 }
 
 ::-moz-selection {
@@ -192,14 +196,12 @@ outline-width: 3px;
 #signup{
  background: rgb(102, 102, 218);
     font-family: sans-serif;
-    font-size: 10px
+    font-size: 10px;
     padding: 4em 4em 2em;
     max-width:  400px;
     margin: 50px auto 0;
     box-shadow: 0 0 1em #222;
-    
-
-      text-align:center; 
+    text-align:center; 
     }
     input {
       display: block;
@@ -229,5 +231,5 @@ outline-width: 3px;
       height: 176px; 
     }
 
-    
+   
 
