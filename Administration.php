@@ -6,7 +6,6 @@
   <link rel='stylesheet' type='text/css' media='screen' href='2tpife.css'>
 </head>
 <body>
-
 <nav id="navigationBar1">
         <div id="navigationTittle">
             
@@ -21,17 +20,13 @@
             </div>
             </nav> 
    
-        <div id="signup">
-       
-        
+        <div id="signup">   
 <?php
 include_once "sessionCheck.php";
 include_once "credentials.php";
-
 if (!$_SESSION["UserLogged"]) {
   die("You are NOT allowed here !");
 }
-
 $userSelect = $connection->prepare(
   "SELECT User_type FROM ppl WHERE PERSON_ID=?"
 );
