@@ -12,7 +12,7 @@ if (isset($_POST["Logout"])) {
 <a href="login_page.php"> Click here to login again </a>
 <?php
 } elseif ($_SESSION["UserLogged"]) {
-  print "You have already been logged-in" . "<br>";
+  print "You have already been logged-in to our website" . "<br>";
   displayUserDetails($connection);
 } elseif (isset($_POST["Username"]) && isset($_POST["Password"])) {
   $userFromMyDatabase = $connection->prepare("SELECT * FROM ppl WHERE UserName=?");
